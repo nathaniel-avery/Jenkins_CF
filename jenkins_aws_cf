@@ -1,6 +1,14 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "AWS Template of a single EC2 Instance w/ Docker Installed",
+
+     "Parameters" : {
+        "KeyName": {
+            "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+              "Type": "AWS::EC2::KeyPair::KeyName",
+             "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
+            },
+     },
     "Resources": {
         "MyEC2Instance": {
             "Type": "AWS::EC2::Instance",
@@ -8,7 +16,7 @@
                 "AvailabilityZone": "us-east-1d",
                 "ImageId": "ami-2452275e",
                 "InstanceType": "t2.medium",
-                "KeyName": "",
+                "KeyName": { "Ref" : "KeyName" },
                 "SecurityGroups": [
                     {
                         "Ref": "JenkinsSecurityGroup"
